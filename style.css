@@ -679,15 +679,16 @@ textarea:focus-visible {
   photos. Swap in real job photos to replace.
   ========================================= */
 
-.results-grid,
-.reviews-grid {
+.results-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
 }
 
 .reviews-grid {
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
 }
 
 .result-card,
@@ -718,9 +719,9 @@ textarea:focus-visible {
   object-fit: cover;
 }
 
-/* Make the "before" visibly grubbier than the "after" */
+/* Real customer photos - authentic results */
 .result-images .before-img img {
-  filter: saturate(0.45) brightness(0.72) contrast(1.05);
+  object-fit: cover;
 }
 
 /* Slit divider between before & after */
