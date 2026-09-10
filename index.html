@@ -502,7 +502,7 @@
     <div class="container about-grid">
       <div class="about-media reveal">
         <img
-          src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1000&q=80"
+          src="images/Photo .webp"
           alt="Stain Steamer technician cleaning a home"
           loading="lazy"
           decoding="async"
@@ -616,25 +616,45 @@
 
       <div class="results-grid">
         <article class="result-card reveal">
-          <div class="result-images">
-            <div class="before-img">
-              <img
-                src="images/hallway-before.jpeg"
-                alt="Hallway carpet before cleaning"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="result-label">Before</span>
-            </div>
-            <div class="after-img">
+          <div class="result-images before-after-slider" style="--slider-pos: 50%;">
+            <div class="slider-layer after-img">
               <img
                 src="images/hallway-after.jpeg"
                 alt="Hallway carpet after cleaning"
                 loading="lazy"
                 decoding="async"
+                draggable="false"
               />
-              <span class="result-label after">After</span>
             </div>
+            <div class="slider-layer before-img">
+              <img
+                src="images/hallway-before.jpeg"
+                alt="Hallway carpet before cleaning"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </div>
+            <div class="slider-handle" aria-hidden="true">
+              <div class="slider-line"></div>
+              <span class="slider-badge-reveal">DRAG TO REVEAL</span>
+              <div class="slider-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="8 17 3 12 8 7"></polyline>
+                  <polyline points="16 7 21 12 16 17"></polyline>
+                </svg>
+              </div>
+            </div>
+            <span class="slider-badge slider-badge-before" aria-hidden="true">Before</span>
+            <span class="slider-badge slider-badge-after" aria-hidden="true">After</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="slider-range"
+              aria-label="Drag to compare Hallway carpet before and after cleaning"
+            />
           </div>
           <div class="result-content">
             <strong>Hallway carpet cleaning</strong>
@@ -643,25 +663,45 @@
         </article>
 
         <article class="result-card reveal">
-          <div class="result-images">
-            <div class="before-img">
-              <img
-                src="images/room-before.jpeg"
-                alt="Room carpet before cleaning"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="result-label">Before</span>
-            </div>
-            <div class="after-img">
+          <div class="result-images before-after-slider" style="--slider-pos: 50%;">
+            <div class="slider-layer after-img">
               <img
                 src="images/room-after.jpeg"
                 alt="Room carpet after cleaning"
                 loading="lazy"
                 decoding="async"
+                draggable="false"
               />
-              <span class="result-label after">After</span>
             </div>
+            <div class="slider-layer before-img">
+              <img
+                src="images/room-before.jpeg"
+                alt="Room carpet before cleaning"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </div>
+            <div class="slider-handle" aria-hidden="true">
+              <div class="slider-line"></div>
+              <span class="slider-badge-reveal">DRAG TO REVEAL</span>
+              <div class="slider-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="8 17 3 12 8 7"></polyline>
+                  <polyline points="16 7 21 12 16 17"></polyline>
+                </svg>
+              </div>
+            </div>
+            <span class="slider-badge slider-badge-before" aria-hidden="true">Before</span>
+            <span class="slider-badge slider-badge-after" aria-hidden="true">After</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="slider-range"
+              aria-label="Drag to compare Room carpet before and after cleaning"
+            />
           </div>
           <div class="result-content">
             <strong>Room carpet cleaning</strong>
@@ -670,25 +710,45 @@
         </article>
 
         <article class="result-card reveal">
-          <div class="result-images">
-            <div class="before-img">
-              <img
-                src="images/sofa-before.jpeg"
-                alt="Sofa upholstery before cleaning"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="result-label">Before</span>
-            </div>
-            <div class="after-img">
+          <div class="result-images before-after-slider" style="--slider-pos: 50%;">
+            <div class="slider-layer after-img">
               <img
                 src="images/sofa-after.jpeg"
                 alt="Sofa upholstery after cleaning"
                 loading="lazy"
                 decoding="async"
+                draggable="false"
               />
-              <span class="result-label after">After</span>
             </div>
+            <div class="slider-layer before-img">
+              <img
+                src="images/sofa-before.jpeg"
+                alt="Sofa upholstery before cleaning"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </div>
+            <div class="slider-handle" aria-hidden="true">
+              <div class="slider-line"></div>
+              <span class="slider-badge-reveal">DRAG TO REVEAL</span>
+              <div class="slider-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="8 17 3 12 8 7"></polyline>
+                  <polyline points="16 7 21 12 16 17"></polyline>
+                </svg>
+              </div>
+            </div>
+            <span class="slider-badge slider-badge-before" aria-hidden="true">Before</span>
+            <span class="slider-badge slider-badge-after" aria-hidden="true">After</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="slider-range"
+              aria-label="Drag to compare Sofa upholstery before and after cleaning"
+            />
           </div>
           <div class="result-content">
             <strong>Sofa &amp; upholstery cleaning</strong>
@@ -697,25 +757,45 @@
         </article>
 
         <article class="result-card reveal">
-          <div class="result-images">
-            <div class="before-img">
-              <img
-                src="images/gray-carpet-before.jpeg"
-                alt="Commercial and residential carpet before cleaning"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="result-label">Before</span>
-            </div>
-            <div class="after-img">
+          <div class="result-images before-after-slider" style="--slider-pos: 50%;">
+            <div class="slider-layer after-img">
               <img
                 src="images/gray-carpet-after.jpeg"
                 alt="Commercial and residential carpet after cleaning"
                 loading="lazy"
                 decoding="async"
+                draggable="false"
               />
-              <span class="result-label after">After</span>
             </div>
+            <div class="slider-layer before-img">
+              <img
+                src="images/gray-carpet-before.jpeg"
+                alt="Commercial and residential carpet before cleaning"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </div>
+            <div class="slider-handle" aria-hidden="true">
+              <div class="slider-line"></div>
+              <span class="slider-badge-reveal">DRAG TO REVEAL</span>
+              <div class="slider-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="8 17 3 12 8 7"></polyline>
+                  <polyline points="16 7 21 12 16 17"></polyline>
+                </svg>
+              </div>
+            </div>
+            <span class="slider-badge slider-badge-before" aria-hidden="true">Before</span>
+            <span class="slider-badge slider-badge-after" aria-hidden="true">After</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="slider-range"
+              aria-label="Drag to compare Commercial and residential carpet before and after cleaning"
+            />
           </div>
           <div class="result-content">
             <strong>Commercial &amp; residential carpet</strong>
@@ -724,25 +804,45 @@
         </article>
 
         <article class="result-card reveal">
-          <div class="result-images">
-            <div class="before-img">
-              <img
-                src="images/red-carpet-before.jpeg"
-                alt="Deep fiber carpet before cleaning"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="result-label">Before</span>
-            </div>
-            <div class="after-img">
+          <div class="result-images before-after-slider" style="--slider-pos: 50%;">
+            <div class="slider-layer after-img">
               <img
                 src="images/red-carpet-after.jpeg"
                 alt="Deep fiber carpet after cleaning"
                 loading="lazy"
                 decoding="async"
+                draggable="false"
               />
-              <span class="result-label after">After</span>
             </div>
+            <div class="slider-layer before-img">
+              <img
+                src="images/red-carpet-before.jpeg"
+                alt="Deep fiber carpet before cleaning"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </div>
+            <div class="slider-handle" aria-hidden="true">
+              <div class="slider-line"></div>
+              <span class="slider-badge-reveal">DRAG TO REVEAL</span>
+              <div class="slider-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="8 17 3 12 8 7"></polyline>
+                  <polyline points="16 7 21 12 16 17"></polyline>
+                </svg>
+              </div>
+            </div>
+            <span class="slider-badge slider-badge-before" aria-hidden="true">Before</span>
+            <span class="slider-badge slider-badge-after" aria-hidden="true">After</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="slider-range"
+              aria-label="Drag to compare Deep fiber carpet before and after cleaning"
+            />
           </div>
           <div class="result-content">
             <strong>Deep fiber &amp; rug cleaning</strong>
@@ -751,28 +851,48 @@
         </article>
 
         <article class="result-card reveal">
-          <div class="result-images">
-            <div class="before-img">
-              <img
-                src="images/Tile & grout-before.jpeg"
-                alt="Deep fiber carpet before cleaning"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="result-label">Before</span>
-            </div>
-            <div class="after-img">
+          <div class="result-images before-after-slider" style="--slider-pos: 50%;">
+            <div class="slider-layer after-img">
               <img
                 src="images/Tile & grout-after.jpeg"
-                alt="Deep fiber carpet after cleaning"
+                alt="Tile and grout after cleaning"
                 loading="lazy"
                 decoding="async"
+                draggable="false"
               />
-              <span class="result-label after">After</span>
             </div>
+            <div class="slider-layer before-img">
+              <img
+                src="images/Tile & grout-before.jpeg"
+                alt="Tile and grout before cleaning"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </div>
+            <div class="slider-handle" aria-hidden="true">
+              <div class="slider-line"></div>
+              <span class="slider-badge-reveal">DRAG TO REVEAL</span>
+              <div class="slider-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="8 17 3 12 8 7"></polyline>
+                  <polyline points="16 7 21 12 16 17"></polyline>
+                </svg>
+              </div>
+            </div>
+            <span class="slider-badge slider-badge-before" aria-hidden="true">Before</span>
+            <span class="slider-badge slider-badge-after" aria-hidden="true">After</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="slider-range"
+              aria-label="Drag to compare Tile and grout before and after cleaning"
+            />
           </div>
           <div class="result-content">
-            <strong>Tile & grout</strong>
+            <strong>Tile &amp; grout</strong>
             <span>Deep cleaning</span>
           </div>
         </article>
@@ -1188,86 +1308,81 @@
             <span>−</span>
           </button>
           <div class="faq-answer">
-            We provide carpet, upholstery, tile and grout cleaning for homes
-            and businesses.
+            Carpet cleaning, upholstery cleaning, and tile & grout cleaning for residential and commercial customers in Richmond, CA and surrounding East Bay communities.
+
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            Are your cleaning products safe?
+            What areas you serve?
             <span>+</span>
           </button>
           <div class="faq-answer">
-            Yes — we use eco-friendly, non-toxic solutions that are safe for
-            kids and pets.
+            We are based in Richmond, CA and serve many surrounding East Bay communities, including San Pablo, El Cerrito, Albany, Berkeley, El Sobrante, Pinole, Hercules, Oakland, Emeryville, Kensington, Rodeo, Martinez, Concord, Walnut Creek, Orinda, and Lafayette. Contact us to confirm availability in your area.
+
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            How often should I clean my carpets?
+            What carpet cleaning method do you use?
             <span>+</span>
           </button>
           <div class="faq-answer">
-            We recommend professional cleaning every 6–12 months for the
-            best results.
+            We use professional steam cleaning (hot water extraction) with a powerful truck-mounted system to deep clean carpets and extract embedded dirt, stains, odors, and buildup.
+
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            Do you remove tough stains?
+            Can you remove tough stains and odors?
             <span>+</span>
           </button>
           <div class="faq-answer">
-            Yes — our team is trained to handle and remove even the toughest
-            stains.
+            We treat many common stains and odors using professional cleaning products and techniques. Results depend on the type of stain, how long it has been present, and the carpet or upholstery material, so complete removal cannot always be guaranteed.
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            How long does cleaning take?
+            ⁠Are eco-friendly cleaning products available?
             <span>+</span>
           </button>
           <div class="faq-answer">
-            Most services take 1–3 hours depending on the size and condition
-            of the area.
+            Yes. We offer eco-friendly cleaning options when appropriate. We choose cleaning products and methods based on the material, condition, and cleaning needs of each job.
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            Do you offer same-day service?
+            How long does carpet take to dry?
             <span>+</span>
           </button>
           <div class="faq-answer">
-            Yes — same-day and emergency cleaning services are available in
-            most areas.
+            Drying time varies depending on the carpet, ventilation, temperature, humidity, and amount of cleaning required. We use professional extraction equipment to remove as much moisture as possible during the cleaning process.
+
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            Do I need to move my furniture before cleaning?
+            Do I need to move furniture before carpet cleaning?
             <span>+</span>
           </button>
           <div class="faq-answer">
-            Small items should be moved, but our team can carefully shift
-            light furniture. For heavy or delicate pieces, we recommend
-            leaving them in place for safety.
+            We ask customers to move large or heavy furniture before their appointment, as we do not move heavy items. We may assist with smaller, lightweight furniture when possible. Please remove small items, valuables, and personal belongings from the areas being cleaned before we arrive.
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            How do I schedule a service?
+            ⁠How do I get a quote or schedule an appointment?
             <span>+</span>
           </button>
           <div class="faq-answer">
-            Book online through the quote form below or call 415-860-8154
-            for instant scheduling.
+            Call Stain Steamer at 415-860-8154 or use our online quote form. Tell us what you need cleaned, your location, and the approximate size or number of rooms or furniture pieces. Photos can also help us provide a more accurate quote.
           </div>
         </div>
       </div>

@@ -148,4 +148,70 @@
       }
     }
   });
+
+  /* =====================================
+       BEFORE / AFTER COMPARISON SLIDERS
+    ===================================== */
+  const sliders = document.querySelectorAll(".before-after-slider");
+
+  sliders.forEach((slider) => {
+    const range = slider.querySelector(".slider-range");
+    let isDragging = false;
+
+    const updateSlider = (percent) => {
+      const clamped = Math.max(0, Math.min(100, Math.round(percent * 10) / 10));
+      slider.style.setProperty("--slider-pos", `${clamped}%`);
+      if (range && Math.abs(parseFloat(range.value) - clamped) > 0.5) {
+        range.value = clamped;
+      }
+    };
+
+    const getPercentage = (clientX) => {
+      const rect = slider.getBoundingClientRect();
+      if (rect.width <= 0) return 50;
+      const x = clientX - rect.left;
+      return (x / rect.width) * 100;
+    };
+
+    // Keyboard navigation and native range events
+    if (range) {
+      range.addEventListener("input", (e) => {
+        updateSlider(parseFloat(e.target.value));
+      });
+    }
+
+    // Touch and mouse pointer dragging
+    const onPointerMove = (e) => {
+      if (!isDragging) return;
+      updateSlider(getPercentage(e.clientX));
+    };
+
+    const onPointerEnd = (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      slider.classList.remove("is-dragging");
+      try {
+        slider.releasePointerCapture(e.pointerId);
+      } catch (err) {
+        // Safe fallback
+      }
+    };
+
+    slider.addEventListener("pointerdown", (e) => {
+      // Primary button / touch only
+      if (e.button !== 0) return;
+      isDragging = true;
+      slider.classList.add("is-dragging");
+      updateSlider(getPercentage(e.clientX));
+      try {
+        slider.setPointerCapture(e.pointerId);
+      } catch (err) {
+        // Safe fallback
+      }
+    });
+
+    slider.addEventListener("pointermove", onPointerMove);
+    slider.addEventListener("pointerup", onPointerEnd);
+    slider.addEventListener("pointercancel", onPointerEnd);
+  });
 })();
