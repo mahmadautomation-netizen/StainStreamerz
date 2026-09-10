@@ -251,24 +251,28 @@ textarea:focus-visible {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 1.18rem;
-  letter-spacing: -0.5px;
-  white-space: nowrap;
-  color: var(--heading);
+  text-decoration: none;
+  line-height: 1;
 }
 
-.logo-mark {
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
+.logo-img {
+  height: 42px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
   display: block;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
 }
 
-.logo-text b {
-  color: var(--green);
-  font-weight: inherit;
+.logo:hover .logo-img {
+  transform: scale(1.02);
+}
+
+footer .logo-img {
+  height: 46px;
+  max-width: 240px;
+  margin-bottom: 12px;
 }
 
 .desktop-nav {
@@ -1742,8 +1746,9 @@ footer {
     height: 320px;
   }
 
-  .logo {
-    font-size: 1rem;
+  .logo-img {
+    height: 34px;
+    max-width: 175px;
   }
 }
 
