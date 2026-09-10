@@ -95,7 +95,170 @@
   rel="stylesheet"
 />
 
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css?v=20260910-2" />
+
+<style>
+  /* Before & After comparison slider styles */
+  .results-grid .result-images.before-after-slider {
+    display: block !important;
+    position: relative !important;
+    height: 340px !important;
+    overflow: hidden !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: pan-y !important;
+    cursor: ew-resize !important;
+    background: #0f1c16 !important;
+  }
+  .results-grid .result-images.before-after-slider::after {
+    display: none !important;
+  }
+  .before-after-slider .slider-layer {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+  }
+  .before-after-slider .slider-layer img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+    pointer-events: none !important;
+  }
+  .before-after-slider .after-img {
+    z-index: 1 !important;
+  }
+  .before-after-slider .before-img {
+    z-index: 2 !important;
+    clip-path: inset(0 calc(100% - var(--slider-pos, 50%)) 0 0);
+    -webkit-clip-path: inset(0 calc(100% - var(--slider-pos, 50%)) 0 0);
+  }
+  .before-after-slider .slider-handle {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: var(--slider-pos, 50%) !important;
+    transform: translateX(-50%) !important;
+    width: 44px !important;
+    z-index: 4 !important;
+    pointer-events: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    will-change: left !important;
+  }
+  .before-after-slider .slider-line {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    width: 2px !important;
+    transform: translateX(-50%) !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.45) !important;
+  }
+  .before-after-slider .slider-badge-reveal {
+    position: absolute !important;
+    top: 18px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgba(28, 40, 34, 0.88) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    color: #ffffff !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+    padding: 6px 14px !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    z-index: 5 !important;
+  }
+  .before-after-slider .slider-circle {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    color: #1a2b22 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), 0 1px 4px rgba(0, 0, 0, 0.15) !important;
+    pointer-events: none !important;
+    user-select: none !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+    z-index: 5 !important;
+  }
+  .before-after-slider:hover .slider-circle,
+  .before-after-slider.is-dragging .slider-circle {
+    transform: translate(-50%, -50%) scale(1.08) !important;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.42), 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+  }
+  .before-after-slider .slider-badge {
+    position: absolute !important;
+    bottom: 16px !important;
+    z-index: 3 !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    border-radius: 9999px !important;
+    padding: 6px 15px !important;
+    pointer-events: none !important;
+    user-select: none !important;
+  }
+  .before-after-slider .slider-badge-before {
+    left: 16px !important;
+    background: rgba(28, 40, 34, 0.82) !important;
+    color: #ffffff !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  }
+  .before-after-slider .slider-badge-after {
+    right: 16px !important;
+    background: rgba(246, 246, 241, 0.92) !important;
+    color: #17261f !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+  .before-after-slider .slider-range {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    cursor: ew-resize !important;
+    z-index: 10 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    pointer-events: none !important;
+  }
+  .before-after-slider:focus-within .slider-circle {
+    box-shadow: 0 0 0 3px var(--green, #4a7d24), 0 4px 18px rgba(0, 0, 0, 0.35) !important;
+  }
+</style>
 
 <!-- =====================================
    LOCAL BUSINESS SEO
@@ -1714,7 +1877,7 @@
 
 <a href="tel:4158608154" class="mobile-call">☎ Call for a free quote</a>
 
-<script src="script.js" defer></script>
+<script src="script.js?v=20260910-2" defer></script>
 
   </body>
 </html>

@@ -156,11 +156,20 @@
 
   sliders.forEach((slider) => {
     const range = slider.querySelector(".slider-range");
+    const beforeImg = slider.querySelector(".before-img");
+    const handle = slider.querySelector(".slider-handle");
     let isDragging = false;
 
     const updateSlider = (percent) => {
       const clamped = Math.max(0, Math.min(100, Math.round(percent * 10) / 10));
       slider.style.setProperty("--slider-pos", `${clamped}%`);
+      if (beforeImg) {
+        beforeImg.style.clipPath = `inset(0 ${100 - clamped}% 0 0)`;
+        beforeImg.style.webkitClipPath = `inset(0 ${100 - clamped}% 0 0)`;
+      }
+      if (handle) {
+        handle.style.left = `${clamped}%`;
+      }
       if (range && Math.abs(parseFloat(range.value) - clamped) > 0.5) {
         range.value = clamped;
       }
@@ -172,6 +181,9 @@
       const x = clientX - rect.left;
       return (x / rect.width) * 100;
     };
+
+    // Initialize position directly
+    updateSlider(50);
 
     // Keyboard navigation and native range events
     if (range) {
@@ -191,15 +203,17 @@
       isDragging = false;
       slider.classList.remove("is-dragging");
       try {
-        slider.releasePointerCapture(e.pointerId);
+        if (e && e.pointerId) {
+          slider.releasePointerCapture(e.pointerId);
+        }
       } catch (err) {
         // Safe fallback
       }
     };
 
     slider.addEventListener("pointerdown", (e) => {
-      // Primary button / touch only
-      if (e.button !== 0) return;
+      // Allow touch, pen, or primary mouse click (button 0)
+      if (e.pointerType === "mouse" && e.button !== 0) return;
       isDragging = true;
       slider.classList.add("is-dragging");
       updateSlider(getPercentage(e.clientX));
