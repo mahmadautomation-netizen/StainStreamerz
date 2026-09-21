@@ -19,6 +19,37 @@
     });
   });
 
+  /* =====================================
+       SERVICES DROPDOWN
+    ===================================== */
+  const dropdowns = document.querySelectorAll(".has-dropdown");
+
+  const closeAllDropdowns = () => {
+    dropdowns.forEach((dropdown) => {
+      dropdown.classList.remove("open");
+      const toggle = dropdown.querySelector(".nav-drop-toggle");
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  dropdowns.forEach((dropdown) => {
+    const toggle = dropdown.querySelector(".nav-drop-toggle");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const willOpen = !dropdown.classList.contains("open");
+      closeAllDropdowns();
+      dropdown.classList.toggle("open", willOpen);
+      toggle.setAttribute("aria-expanded", String(willOpen));
+    });
+  });
+
+  document.addEventListener("click", closeAllDropdowns);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeAllDropdowns();
+  });
+
   /* Close mobile menu if the window grows to desktop size */
   window.addEventListener("resize", () => {
     if (window.innerWidth > 820) {
@@ -82,7 +113,7 @@
        QUOTE FORM
     ===================================== */
   const quoteForm = document.getElementById("quoteForm");
-  const formNote = quoteForm.querySelector(".form-note");
+  const formNote = quoteForm ? quoteForm.querySelector(".form-note") : null;
   const noteDefault = formNote ? formNote.textContent : "";
 
   /* =====================================
@@ -93,22 +124,63 @@
     yearEl.textContent = new Date().getFullYear();
   }
 
-  quoteForm.addEventListener("submit", async (event) => {
+  if (quoteForm) quoteForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const button = quoteForm.querySelector('button[type="submit"]');
     const originalText = button.textContent;
+    const keyInput = quoteForm.querySelector('input[name="access_key"]');
+    const accessKey = keyInput ? keyInput.value.trim() : "";
+    const hasAccessKey =
+      accessKey && accessKey !== "PASTE_YOUR_ACCESS_KEY_HERE";
+
+    const setNote = (text, color) => {
+      if (!formNote) return;
+      formNote.textContent = text;
+      formNote.style.color = color || "";
+    };
 
     button.disabled = true;
     button.textContent = "Sending...";
-    if (formNote) {
-      formNote.textContent = noteDefault;
-      formNote.style.color = "";
+    setNote(noteDefault, "");
+
+    const formData = new FormData(quoteForm);
+    const getField = (name) => (formData.get(name) || "").toString().trim();
+
+    const sendByMail = () => {
+      const subject = encodeURIComponent(
+        "New quote request — Stain Steamer website"
+      );
+      const body = encodeURIComponent(
+        [
+          `Name: ${getField("name")}`,
+          `Phone: ${getField("phone")}`,
+          `Email: ${getField("email")}`,
+          `ZIP: ${getField("zip")}`,
+          `Service: ${getField("service")}`,
+          `Timeline: ${getField("timeline")}`,
+          "",
+          getField("details"),
+        ].join("\n")
+      );
+      window.location.href = `mailto:stainsteamer@yahoo.com?subject=${subject}&body=${body}`;
+      button.textContent = "✓ Opening email";
+      setNote(
+        "Your email app should open with the request. If it doesn’t, call 415-860-8154.",
+        "var(--green-deep)"
+      );
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+      }, 4000);
+    };
+
+    if (!hasAccessKey) {
+      sendByMail();
+      return;
     }
 
     try {
-      const formData = new FormData(quoteForm);
-
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { Accept: "application/json" },
@@ -118,34 +190,22 @@
       const result = await response.json();
 
       if (response.ok && result.success) {
-        // Success — the quote request has been emailed.
         button.textContent = "✓ Request received";
         quoteForm.reset();
-        if (formNote) {
-          formNote.textContent =
-            "Thanks! We've got your request and will be in touch shortly.";
-          formNote.style.color = "var(--green-deep)";
-        }
+        setNote(
+          "Thanks! We've got your request and will be in touch shortly.",
+          "var(--green-deep)"
+        );
         setTimeout(() => {
           button.textContent = originalText;
           button.disabled = false;
-          if (formNote) {
-            formNote.textContent = noteDefault;
-            formNote.style.color = "";
-          }
+          setNote(noteDefault, "");
         }, 4000);
       } else {
         throw new Error(result.message || "Submission failed");
       }
     } catch (error) {
-      // Failure — let the visitor know and offer the phone number as a fallback.
-      button.textContent = "Try again";
-      button.disabled = false;
-      if (formNote) {
-        formNote.textContent =
-          "Something went wrong. Please call us at 415-860-8154 instead.";
-        formNote.style.color = "#c0392b";
-      }
+      sendByMail();
     }
   });
 
