@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Production domain placeholder: replace YOUR-DOMAIN.com site-wide when live. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://stainsteamerz.com/</loc>
+    <loc>https://YOUR-DOMAIN.com/</loc>
   </url>
   <url>
-    <loc>https://stainsteamerz.com/carpet-cleaning.html</loc>
+    <loc>https://YOUR-DOMAIN.com/carpet-cleaning.html</loc>
   </url>
   <url>
-    <loc>https://stainsteamerz.com/upholstery-cleaning.html</loc>
+    <loc>https://YOUR-DOMAIN.com/upholstery-cleaning.html</loc>
   </url>
   <url>
-    <loc>https://stainsteamerz.com/tile-grout-cleaning.html</loc>
+    <loc>https://YOUR-DOMAIN.com/tile-grout-cleaning.html</loc>
   </url>
   <url>
-    <loc>https://stainsteamerz.com/commercial-cleaning.html</loc>
+    <loc>https://YOUR-DOMAIN.com/commercial-cleaning.html</loc>
   </url>
   <url>
-    <loc>https://stainsteamerz.com/privacy-policy.html</loc>
+    <loc>https://YOUR-DOMAIN.com/privacy-policy.html</loc>
   </url>
 </urlset>

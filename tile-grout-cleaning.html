@@ -20,9 +20,17 @@
       name="description"
       content="Tile and grout cleaning in Richmond, CA. Restore dingy grout lines and soiled tile in kitchens, bathrooms, and entryways with professional deep cleaning."
     />
+    <!-- Canonical uses https://YOUR-DOMAIN.com — replace globally when live. -->
     <link
       rel="canonical"
-      href="https://stainsteamerz.com/tile-grout-cleaning.html"
+      href="https://YOUR-DOMAIN.com/tile-grout-cleaning.html"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="images/tile-grout.webp"
+      type="image/webp"
+      fetchpriority="high"
     />
     <link
       rel="icon"
@@ -35,12 +43,13 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=20260921-8" />
+    <link rel="stylesheet" href="style.css?v=20261013-1" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Service",
         "name": "Tile and grout cleaning",
+        "url": "https://YOUR-DOMAIN.com/tile-grout-cleaning.html",
         "provider": {
           "@type": "LocalBusiness",
           "name": "Stain Steamer",
@@ -58,7 +67,7 @@
       <div class="container nav">
         <a class="logo" href="index.html" aria-label="Stain Steamer home">
           <img
-            src="images/logo.png"
+            src="images/logo.webp"
             alt="Stain Steamer - Where Deep Clean Meets Gentle Care"
             class="logo-img"
             width="200"
@@ -169,10 +178,12 @@
           </div>
           <div class="visual reveal">
             <img
-              src="images/tile-grout.jpeg"
-              alt="Clean tile and grout after professional service"
+              src="images/tile-grout.webp"
+              alt="Floor tile and grout after professional cleaning"
               width="1200"
-              height="900"
+              height="1600"
+              fetchpriority="high"
+              decoding="async"
             />
             <div class="visual-overlay"></div>
             <div class="visual-info">
@@ -249,6 +260,13 @@
               will be honest about what can be improved versus what may need
               sealing or further work.
             </p>
+            <p>
+              Adjacent rooms can be cleaned in the same appointment with our
+              <a href="carpet-cleaning.html">carpet cleaning</a> and
+              <a href="upholstery-cleaning.html">upholstery cleaning</a>.
+              Businesses can book tiled floors through
+              <a href="commercial-cleaning.html">commercial cleaning</a>.
+            </p>
             <ul class="checklist">
               <li><span class="check">✓</span> Kitchen, bath & entry tile</li>
               <li>
@@ -271,11 +289,11 @@
           </div>
           <div class="about-media reveal">
             <img
-              src="images/tile-grout.jpeg"
+              src="images/tile-grout.webp"
               alt="Clean tile and grout after professional service"
               loading="lazy"
               decoding="async"
-            />
+             width="1200" height="1600" />
           </div>
         </div>
       </section>
@@ -291,10 +309,10 @@
             <article class="result-card reveal">
               <div class="result-images before-after-slider" style="--slider-pos: 50%;">
                 <div class="slider-layer after-img">
-                  <img src="images/tile-grout-after.jpeg" alt="Tile and grout after cleaning" loading="lazy" decoding="async" draggable="false" />
+                  <img src="images/tile-grout-after.webp" alt="Tile and grout after cleaning" loading="lazy" decoding="async" draggable="false"  width="1200" height="1600" />
                 </div>
                 <div class="slider-layer before-img">
-                  <img src="images/tile-grout-before.jpeg" alt="Tile and grout before cleaning" loading="lazy" decoding="async" draggable="false" />
+                  <img src="images/tile-grout-before.webp" alt="Tile and grout before cleaning" loading="lazy" decoding="async" draggable="false"  width="1200" height="1600" />
                 </div>
                 <div class="slider-handle" aria-hidden="true">
                   <div class="slider-line"></div>
@@ -349,9 +367,9 @@
               about pricing and availability.
             </p>
             <div class="contact">
-              <strong>415-860-8154</strong>
+              <a href="tel:4158608154"><strong>415-860-8154</strong></a>
             </div>
-            <div class="contact">stainsteamer@yahoo.com</div>
+            <div class="contact"><a href="mailto:stainsteamer@yahoo.com">stainsteamer@yahoo.com</a></div>
             <div class="contact">Richmond, California</div>
             <div class="contact-hours">
               <strong
@@ -363,6 +381,7 @@
           </div>
           <form class="quote-form reveal" id="quoteForm">
             <h3>Request your free quote</h3>
+            <!-- TODO: CLIENT production Web3Forms access key (same as homepage) -->
             <input
               type="hidden"
               name="access_key"
@@ -385,38 +404,58 @@
               style="display: none"
               tabindex="-1"
               autocomplete="off"
+              aria-hidden="true"
             />
-            <div class="form-row">
-              <input
-                type="text"
-                name="name"
-                autocomplete="name"
-                placeholder="Full name"
-                required
-              />
-              <input
-                type="tel"
-                name="phone"
-                autocomplete="tel"
-                placeholder="Phone number"
-                required
-              />
+                        <div class="form-row">
+              <div class="form-field">
+                <label class="visually-hidden" for="quote-name">Full name</label>
+                <input
+                  id="quote-name"
+                  type="text"
+                  name="name"
+                  autocomplete="name"
+                  placeholder="Full name"
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label class="visually-hidden" for="quote-phone">Phone number</label>
+                <input
+                  id="quote-phone"
+                  type="tel"
+                  name="phone"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  placeholder="Phone number"
+                  required
+                />
+              </div>
             </div>
             <div class="form-row">
-              <input
-                type="email"
-                name="email"
-                autocomplete="email"
-                placeholder="Email address"
-              />
-              <input
-                type="text"
-                name="zip"
-                autocomplete="postal-code"
-                placeholder="ZIP code"
-              />
+              <div class="form-field">
+                <label class="visually-hidden" for="quote-email">Email address</label>
+                <input
+                  id="quote-email"
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  placeholder="Email address"
+                />
+              </div>
+              <div class="form-field">
+                <label class="visually-hidden" for="quote-zip">ZIP code</label>
+                <input
+                  id="quote-zip"
+                  type="text"
+                  name="zip"
+                  autocomplete="postal-code"
+                  inputmode="numeric"
+                  placeholder="ZIP code"
+                />
+              </div>
             </div>
-            <select name="service" required>
+            <label class="visually-hidden" for="quote-service">Cleaning service</label>
+            <select id="quote-service" name="service" required>
               <option value="">Select a cleaning service</option>
               <option>Carpet cleaning</option>
               <option>Upholstery cleaning</option>
@@ -424,19 +463,22 @@
               <option>Commercial cleaning</option>
               <option>Other</option>
             </select>
-            <select name="timeline">
+            <label class="visually-hidden" for="quote-timeline">When do you need service?</label>
+            <select id="quote-timeline" name="timeline">
               <option value="">When do you need service?</option>
               <option>Today</option>
               <option>Tomorrow</option>
               <option>This week</option>
               <option>Flexible</option>
             </select>
+            <label class="visually-hidden" for="quote-details">Job details</label>
             <textarea
+              id="quote-details"
               name="details"
               placeholder="Tell us what needs cleaning — number of rooms or items, stains, odors, etc."
             ></textarea>
             <button type="submit" class="btn">Get my free quote</button>
-            <p class="form-note">
+            <p class="form-note" role="status" aria-live="polite">
               We'll never share your details. No obligation.
             </p>
           </form>
@@ -450,7 +492,7 @@
           <div>
             <a class="logo" href="index.html" aria-label="Stain Steamer home">
               <img
-                src="images/logo.png"
+                src="images/logo.webp"
                 alt="Stain Steamer - Where Deep Clean Meets Gentle Care"
                 class="logo-img"
                 width="200"
@@ -550,6 +592,7 @@
       </div>
     </footer>
     <a href="tel:4158608154" class="mobile-call">☎ Call 415-860-8154</a>
-    <script src="script.js?v=20260921-6" defer></script>
+    <script src="tracking.js?v=20261013-1" defer></script>
+    <script src="script.js?v=20261013-1" defer></script>
   </body>
 </html>

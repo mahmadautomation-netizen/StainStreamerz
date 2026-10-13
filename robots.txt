@@ -1,4 +1,5 @@
+# Production domain placeholder: replace YOUR-DOMAIN.com site-wide when live.
 User-agent: *
 Allow: /
 
-Sitemap: https://stainsteamerz.com/sitemap.xml
+Sitemap: https://YOUR-DOMAIN.com/sitemap.xml

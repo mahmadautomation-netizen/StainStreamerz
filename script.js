@@ -5,19 +5,21 @@
   const menuToggle = document.getElementById("menuToggle");
   const mobileMenu = document.getElementById("mobileMenu");
 
-  menuToggle.addEventListener("click", () => {
-    const isOpen = mobileMenu.classList.toggle("open");
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-  });
-
-  /* Close mobile menu after clicking a link */
-  mobileMenu.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      mobileMenu.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
     });
-  });
+
+    /* Close mobile menu after clicking a link */
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
 
   /* =====================================
        SERVICES DROPDOWN
@@ -52,7 +54,7 @@
 
   /* Close mobile menu if the window grows to desktop size */
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 820) {
+    if (window.innerWidth > 820 && menuToggle && mobileMenu) {
       mobileMenu.classList.remove("open");
       menuToggle.setAttribute("aria-expanded", "false");
     }
@@ -110,13 +112,6 @@
   }
 
   /* =====================================
-       QUOTE FORM
-    ===================================== */
-  const quoteForm = document.getElementById("quoteForm");
-  const formNote = quoteForm ? quoteForm.querySelector(".form-note") : null;
-  const noteDefault = formNote ? formNote.textContent : "";
-
-  /* =====================================
        FOOTER YEAR — always current
     ===================================== */
   const yearEl = document.getElementById("year");
@@ -124,90 +119,130 @@
     yearEl.textContent = new Date().getFullYear();
   }
 
-  if (quoteForm) quoteForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  /* =====================================
+       QUOTE FORM
+    ===================================== */
+  const quoteForm = document.getElementById("quoteForm");
+  const formNote = quoteForm ? quoteForm.querySelector(".form-note") : null;
+  const noteDefault = formNote ? formNote.textContent : "";
+  let quoteSubmitting = false;
 
-    const button = quoteForm.querySelector('button[type="submit"]');
-    const originalText = button.textContent;
-    const keyInput = quoteForm.querySelector('input[name="access_key"]');
-    const accessKey = keyInput ? keyInput.value.trim() : "";
-    const hasAccessKey =
-      accessKey && accessKey !== "PASTE_YOUR_ACCESS_KEY_HERE";
+  const track = window.stainSteamerTrack || {};
 
-    const setNote = (text, color) => {
-      if (!formNote) return;
-      formNote.textContent = text;
-      formNote.style.color = color || "";
-    };
+  if (quoteForm) {
+    quoteForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (quoteSubmitting) return;
 
-    button.disabled = true;
-    button.textContent = "Sending...";
-    setNote(noteDefault, "");
+      const button = quoteForm.querySelector('button[type="submit"]');
+      if (!button) return;
 
-    const formData = new FormData(quoteForm);
-    const getField = (name) => (formData.get(name) || "").toString().trim();
+      const originalText = button.textContent;
+      const keyInput = quoteForm.querySelector('input[name="access_key"]');
+      const accessKey = keyInput ? keyInput.value.trim() : "";
+      const hasAccessKey =
+        accessKey && accessKey !== "PASTE_YOUR_ACCESS_KEY_HERE";
 
-    const sendByMail = () => {
-      const subject = encodeURIComponent(
-        "New quote request — Stain Steamer website"
-      );
-      const body = encodeURIComponent(
-        [
-          `Name: ${getField("name")}`,
-          `Phone: ${getField("phone")}`,
-          `Email: ${getField("email")}`,
-          `ZIP: ${getField("zip")}`,
-          `Service: ${getField("service")}`,
-          `Timeline: ${getField("timeline")}`,
-          "",
-          getField("details"),
-        ].join("\n")
-      );
-      window.location.href = `mailto:stainsteamer@yahoo.com?subject=${subject}&body=${body}`;
-      button.textContent = "✓ Opening email";
-      setNote(
-        "Your email app should open with the request. If it doesn’t, call 415-860-8154.",
-        "var(--green-deep)"
-      );
-      setTimeout(() => {
-        button.textContent = originalText;
-        button.disabled = false;
-      }, 4000);
-    };
+      const setNote = (text, color) => {
+        if (!formNote) return;
+        formNote.textContent = text;
+        formNote.style.color = color || "";
+      };
 
-    if (!hasAccessKey) {
-      sendByMail();
-      return;
-    }
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        button.textContent = "✓ Request received";
-        quoteForm.reset();
-        setNote(
-          "Thanks! We've got your request and will be in touch shortly.",
-          "var(--green-deep)"
-        );
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.disabled = false;
-          setNote(noteDefault, "");
-        }, 4000);
-      } else {
-        throw new Error(result.message || "Submission failed");
+      if (!quoteForm.checkValidity()) {
+        quoteForm.reportValidity();
+        return;
       }
-    } catch (error) {
-      sendByMail();
-    }
-  });
+
+      quoteSubmitting = true;
+      if (track.resetQuoteFlag) track.resetQuoteFlag();
+      quoteForm.querySelectorAll(".form-fallback-mail").forEach((el) => el.remove());
+      button.disabled = true;
+      button.setAttribute("aria-busy", "true");
+      button.textContent = "Sending...";
+      setNote(noteDefault, "");
+
+      const formData = new FormData(quoteForm);
+      const getField = (name) => (formData.get(name) || "").toString().trim();
+
+      const clearFallback = () => {
+        quoteForm.querySelectorAll(".form-fallback-mail").forEach((el) => el.remove());
+      };
+
+      const restoreButton = () => {
+        quoteSubmitting = false;
+        button.disabled = false;
+        button.removeAttribute("aria-busy");
+        button.textContent = originalText;
+      };
+
+      const failWithOptions = (message) => {
+        const subject = encodeURIComponent(
+          "New quote request — Stain Steamer website"
+        );
+        const body = encodeURIComponent(
+          [
+            `Name: ${getField("name")}`,
+            `Phone: ${getField("phone")}`,
+            `Email: ${getField("email")}`,
+            `ZIP: ${getField("zip")}`,
+            `Service: ${getField("service")}`,
+            `Timeline: ${getField("timeline")}`,
+            "",
+            getField("details"),
+          ].join("\n")
+        );
+        setNote(
+          message +
+            " You can also email stainsteamer@yahoo.com or call 415-860-8154.",
+          "#a33"
+        );
+        restoreButton();
+        clearFallback();
+        button.insertAdjacentHTML(
+          "afterend",
+          `<a class="form-fallback-mail" href="mailto:stainsteamer@yahoo.com?subject=${subject}&body=${body}">Open email app instead</a>`
+        );
+      };
+
+      if (!hasAccessKey) {
+        failWithOptions(
+          "The online form is not connected yet (Web3Forms access key missing)."
+        );
+        return;
+      }
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          button.textContent = "✓ Request received";
+          quoteForm.reset();
+          setNote(
+            "Thanks! We've got your request and will be in touch shortly.",
+            "var(--green-deep)"
+          );
+          if (track.quoteSubmitSuccess) track.quoteSubmitSuccess();
+          setTimeout(() => {
+            restoreButton();
+            setNote(noteDefault, "");
+          }, 4000);
+        } else {
+          throw new Error(result.message || "Submission failed");
+        }
+      } catch (error) {
+        failWithOptions(
+          "We couldn't send your request. Please try again in a moment."
+        );
+      }
+    });
+  }
 
   /* =====================================
        BEFORE / AFTER COMPARISON SLIDERS
