@@ -138,10 +138,6 @@
       if (!button) return;
 
       const originalText = button.textContent;
-      const keyInput = quoteForm.querySelector('input[name="access_key"]');
-      const accessKey = keyInput ? keyInput.value.trim() : "";
-      const hasAccessKey =
-        accessKey && accessKey !== "PASTE_YOUR_ACCESS_KEY_HERE";
 
       const setNote = (text, color) => {
         if (!formNote) return;
@@ -205,23 +201,19 @@
         );
       };
 
-      if (!hasAccessKey) {
-        failWithOptions(
-          "The online form is not connected yet (Web3Forms access key missing)."
-        );
-        return;
-      }
-
       try {
-        const response = await fetch("https://api.web3forms.com/submit", {
+        const payload = new URLSearchParams(formData);
+        if (!payload.get("form-name")) {
+          payload.set("form-name", quoteForm.getAttribute("name") || "quote");
+        }
+
+        const response = await fetch("/", {
           method: "POST",
-          headers: { Accept: "application/json" },
-          body: formData,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: payload.toString(),
         });
 
-        const result = await response.json();
-
-        if (response.ok && result.success) {
+        if (response.ok) {
           button.textContent = "✓ Request received";
           quoteForm.reset();
           setNote(
@@ -234,7 +226,7 @@
             setNote(noteDefault, "");
           }, 4000);
         } else {
-          throw new Error(result.message || "Submission failed");
+          throw new Error("Submission failed");
         }
       } catch (error) {
         failWithOptions(

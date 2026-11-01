@@ -256,13 +256,24 @@
               <span>Monday – Sunday: 8:30 AM – 10:00 PM</span>
             </div>
           </div>
-          <form class="quote-form reveal" id="quoteForm">
+          <form
+            class="quote-form reveal"
+            id="quoteForm"
+            name="quote"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+          >
             <h3>Request your free quote</h3>
-            <!-- TODO: CLIENT production Web3Forms access key (same as homepage) -->
-            <input type="hidden" name="access_key" value="PASTE_YOUR_ACCESS_KEY_HERE" />
+            <input type="hidden" name="form-name" value="quote" />
             <input type="hidden" name="subject" value="New quote request — Stain Steamer website" />
-            <input type="hidden" name="from_name" value="Stain Steamer website" />
-            <input type="checkbox" name="botcheck" class="hidden" style="display: none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <input type="hidden" name="page" value="Carpet cleaning" />
+            <p class="visually-hidden">
+              <label>
+                Don’t fill this out if you’re human:
+                <input name="bot-field" tabindex="-1" autocomplete="off" />
+              </label>
+            </p>
                         <div class="form-row">
               <div class="form-field">
                 <label class="visually-hidden" for="quote-name">Full name</label>
@@ -392,6 +403,6 @@
     </footer>
     <a href="tel:4158608154" class="mobile-call">☎ Call 415-860-8154</a>
     <script src="tracking.js?v=20261013-1" defer></script>
-    <script src="script.js?v=20261013-1" defer></script>
+    <script src="script.js?v=20261101-1" defer></script>
   </body>
 </html>
